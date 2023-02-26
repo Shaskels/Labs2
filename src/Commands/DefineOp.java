@@ -1,4 +1,5 @@
 package Commands;
+import java.util.HashMap;
 import java.util.Map;
 import ExecutionContext.Context;
 public class DefineOp {
