@@ -32,12 +32,14 @@ public class Handler {
                 new CreateSubCommand(),
                 new CreateSumCommand(),
                 new CreateSqrtCommand(),
+                new CreatePrintCommand()
         };
         for(CommandContext com : toCalculate){
             for(CommandCreator creator: creators)
                if (com.getCommand() == creator.getType()){
                    Command op = creator.CreateCommand();
                    op.Do(this.context, com.getArguments());
+                   break;
                }
 
         }
