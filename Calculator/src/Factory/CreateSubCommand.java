@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateSubCommand extends CommandCreator{
 
     private String type = "-";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> SubCommand = Class.forName("Commands.SubOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> SubCommand = Class.forName(classes.get(type));
             Command sub = (Command)SubCommand.newInstance();
             return sub;
         }

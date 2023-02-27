@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateDivCommand extends CommandCreator{
 
     private String type = "/";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> DivCommand = Class.forName("Commands.DivOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> DivCommand = Class.forName(classes.get(type));
             Command div = (Command)DivCommand.newInstance();
             return div;
         }

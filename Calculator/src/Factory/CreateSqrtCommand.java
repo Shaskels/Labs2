@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateSqrtCommand extends CommandCreator{
 
     private String type = "SQRT";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> SqrtCommand = Class.forName("Commands.SqrtOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> SqrtCommand = Class.forName(classes.get(type));
             Command sqrt = (Command)SqrtCommand.newInstance();
             return sqrt;
         }

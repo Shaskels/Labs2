@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateDefineCommand extends CommandCreator {
 
     private String type = "DEFINE";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> CommandDefine = Class.forName("Commands.DefineOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> CommandDefine = Class.forName(classes.get(type));
             Command define = (Command)CommandDefine.newInstance();
             return define;
         }

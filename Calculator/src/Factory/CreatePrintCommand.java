@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreatePrintCommand extends  CommandCreator{
 
     private String type = "PRINT";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> CommandPrint = Class.forName("Commands.PrintOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> CommandPrint = Class.forName(classes.get(type));
             Command print = (Command) CommandPrint.newInstance();
             return print;
         }

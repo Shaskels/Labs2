@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreatePopCommand extends CommandCreator {
 
     private String type = "POP";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> CommandPop = Class.forName("Commands.PopOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> CommandPop = Class.forName(classes.get(type));
             Command pop = (Command) CommandPop.newInstance();
             return pop;
         }

@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateSumCommand extends CommandCreator {
 
     private String type = "+";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> SumCommand = Class.forName("Commands.SumOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> SumCommand = Class.forName(classes.get(type));
             Command sum = (Command)SumCommand.newInstance();
             return sum;
         }

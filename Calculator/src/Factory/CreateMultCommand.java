@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreateMultCommand extends CommandCreator{
 
     private String type = "*";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> MultCommand = Class.forName("Commands.MultOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> MultCommand = Class.forName(classes.get(type));
             Command mult = (Command)MultCommand.newInstance();
             return mult;
         }

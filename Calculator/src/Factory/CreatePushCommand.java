@@ -1,12 +1,15 @@
 package Factory;
 
+import java.util.Map;
+
 public class CreatePushCommand extends CommandCreator{
 
     private String type = "PUSH";
     @Override
-    public Command CreateCommand(){
+    public Command CreateCommand(Config config){
         try{
-            Class<?> CommandPush = Class.forName("Commands.PushOp");
+            Map<String,String> classes = config.getClasses();
+            Class<?> CommandPush = Class.forName(classes.get(type));
             Command push = (Command) CommandPush.newInstance();
             return push;
         }

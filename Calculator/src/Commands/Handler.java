@@ -1,4 +1,5 @@
 package Commands;
+import Errors.MyException;
 import Factory.*;
 import Input.CommandContext;
 import Input.Program;
@@ -20,28 +21,35 @@ public class Handler {
         context.setParameters(parameters);
     }
 
-    public void Processing(Program program){
-        List<CommandContext> toCalculate = program.getToCalculate();
-        CommandCreator[] creators = {
-                new CreateCommentCommand(),
-                new CreateDefineCommand(),
-                new CreatePopCommand(),
-                new CreatePushCommand(),
-                new CreateDivCommand(),
-                new CreateMultCommand(),
-                new CreateSubCommand(),
-                new CreateSumCommand(),
-                new CreateSqrtCommand(),
-                new CreatePrintCommand()
-        };
-        for(CommandContext com : toCalculate){
-            for(CommandCreator creator: creators)
-               if (com.getCommand() == creator.getType()){
-                   Command op = creator.CreateCommand();
-                   op.Do(this.context, com.getArguments());
-                   break;
-               }
+    public void Processing(Program program, Config config){
+        try {
+            List<CommandContext> toCalculate = program.getToCalculate();
+            CommandCreator[] creators = {
+                    new CreateCommentCommand(),
+                    new CreateDefineCommand(),
+                    new CreatePopCommand(),
+                    new CreatePushCommand(),
+                    new CreateDivCommand(),
+                    new CreateMultCommand(),
+                    new CreateSubCommand(),
+                    new CreateSumCommand(),
+                    new CreateSqrtCommand(),
+                    new CreatePrintCommand()
+            };
+            for (CommandContext com : toCalculate) {
+                for (CommandCreator creator : creators)
+                    if (com.getCommand() == creator.getType()) {
+                        Command op = creator.CreateCommand(config);
+                        if (op == null)
+                            throw new MyException("Неправильное название класса команды");
+                        op.Do(this.context, com.getArguments());
+                        break;
+                    }
 
+            }
+        }
+        catch (MyException error){
+            System.out.println(error.getErrorCode());
         }
     }
 }
