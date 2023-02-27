@@ -1,10 +1,12 @@
 package Commands;
 import java.util.Map;
 import ExecutionContext.Context;
-public class DefineOp {
-    public void Define (Context con, String[] symbols){
+import Factory.Command;
+
+public class DefineOp implements Command {
+    public void Do(Context con, String[] args){
         Map<String, Float> map = con.getParameters();
-        float num = Float.parseFloat(symbols[1]);
-        map.put(symbols[0], num);
+        float num = Float.parseFloat(args[1]);
+        map.put(args[0], num);
     }
 }

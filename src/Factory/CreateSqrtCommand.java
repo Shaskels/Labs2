@@ -1,14 +1,14 @@
 package Factory;
 
-public class CreateDefineCommand extends CommandCreator {
+public class CreateSqrtCommand extends CommandCreator{
 
-    private String type = "DEFINE";
+    private String type = "SQRT";
     @Override
     public Command CreateCommand(){
         try{
-            Class<?> CommandDefine = Class.forName("Commands.DefineOp");
-            Command define = (Command)CommandDefine.newInstance();
-            return define;
+            Class<?> SqrtCommand = Class.forName("Commands.SqrtOp");
+            Command sqrt = (Command)SqrtCommand.newInstance();
+            return sqrt;
         }
         catch (ClassNotFoundException error){
             System.out.println(error);

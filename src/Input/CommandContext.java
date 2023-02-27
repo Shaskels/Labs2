@@ -8,4 +8,12 @@ public class CommandContext {
         this.command = command;
         this.arguments = arguments;
     }
+
+    public String getCommand(){
+        return command;
+    }
+
+    public String[] getArguments(){
+        return arguments;
+    }
 }

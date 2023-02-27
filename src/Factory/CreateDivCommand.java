@@ -1,14 +1,14 @@
 package Factory;
 
-public class CreateDefineCommand extends CommandCreator {
+public class CreateDivCommand extends CommandCreator{
 
-    private String type = "DEFINE";
+    private String type = "/";
     @Override
     public Command CreateCommand(){
         try{
-            Class<?> CommandDefine = Class.forName("Commands.DefineOp");
-            Command define = (Command)CommandDefine.newInstance();
-            return define;
+            Class<?> DivCommand = Class.forName("Commands.DivOp");
+            Command div = (Command)DivCommand.newInstance();
+            return div;
         }
         catch (ClassNotFoundException error){
             System.out.println(error);

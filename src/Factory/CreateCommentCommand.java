@@ -1,6 +1,8 @@
 package Factory;
 
-public class CreateCommentCommand extends Creator{
+public class CreateCommentCommand extends CommandCreator {
+
+    private String type = "#";
     @Override
     public Command CreateCommand(){
         try{
@@ -18,5 +20,9 @@ public class CreateCommentCommand extends Creator{
             System.out.println(error);
         }
         return null;
+    }
+
+    public String getType(){
+        return type;
     }
 }

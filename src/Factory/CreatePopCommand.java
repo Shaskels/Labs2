@@ -1,16 +1,16 @@
 package Factory;
 
-public class CreateDefineCommand extends CommandCreator {
+public class CreatePopCommand extends CommandCreator {
 
-    private String type = "DEFINE";
+    private String type = "POP";
     @Override
     public Command CreateCommand(){
         try{
-            Class<?> CommandDefine = Class.forName("Commands.DefineOp");
-            Command define = (Command)CommandDefine.newInstance();
-            return define;
+            Class<?> CommandPop = Class.forName("Commands.PopOp");
+            Command pop = (Command) CommandPop.newInstance();
+            return pop;
         }
-        catch (ClassNotFoundException error){
+        catch(ClassNotFoundException error){
             System.out.println(error);
         }
         catch (InstantiationException error){

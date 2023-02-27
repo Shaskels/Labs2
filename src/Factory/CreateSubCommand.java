@@ -1,14 +1,14 @@
 package Factory;
 
-public class CreateDefineCommand extends CommandCreator {
+public class CreateSubCommand extends CommandCreator{
 
-    private String type = "DEFINE";
+    private String type = "-";
     @Override
     public Command CreateCommand(){
         try{
-            Class<?> CommandDefine = Class.forName("Commands.DefineOp");
-            Command define = (Command)CommandDefine.newInstance();
-            return define;
+            Class<?> SubCommand = Class.forName("Commands.SubOp");
+            Command sub = (Command)SubCommand.newInstance();
+            return sub;
         }
         catch (ClassNotFoundException error){
             System.out.println(error);

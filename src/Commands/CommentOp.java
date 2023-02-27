@@ -1,7 +1,10 @@
 package Commands;
 
-public class CommentOp {
-    public void Comment(){
+import Factory.Command;
+import ExecutionContext.Context;
+
+public class CommentOp implements Command {
+    public void Do(Context con, String[] args){
 
     }
 }

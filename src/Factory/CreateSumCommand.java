@@ -1,12 +1,14 @@
 package Factory;
 
-public class CreateArithmCommand extends Creator {
+public class CreateSumCommand extends CommandCreator {
+
+    private String type = "+";
     @Override
     public Command CreateCommand(){
         try{
-            Class<?> ArithmCommand = Class.forName("Commands.ArithmeticOp");
-            Command arithmetic = (Command)ArithmCommand.newInstance();
-            return arithmetic;
+            Class<?> SumCommand = Class.forName("Commands.SumOp");
+            Command sum = (Command)SumCommand.newInstance();
+            return sum;
         }
         catch (ClassNotFoundException error){
                 System.out.println(error);
@@ -18,5 +20,9 @@ public class CreateArithmCommand extends Creator {
                 System.out.println(error);
         }
         return null;
+    }
+
+    public String getType(){
+        return type;
     }
 }
