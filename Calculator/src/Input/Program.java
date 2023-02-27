@@ -1,4 +1,6 @@
 package Input;
+import Errors.MyException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,53 +31,63 @@ public class Program {
                 }
                 return context;
         }
-        private void ParseLine(String[] args){
+        private CommandContext ParseLine(String[] args){
                 try {
                         BufferedReader br = new BufferedReader(new FileReader(args[0]));
                         String line;
                         String[] partsOfLine;
                         String[] commands = {"PUSH","POP","+","-","*","/","SQRT","DEFINE","PRINT","#"};
                         toCalculate = new ArrayList<>();
+                        CommandContext con = null;
                         while((line = br.readLine()) != null){
                                 partsOfLine = line.split(" ");
-                                CommandContext con = MakeContext(commands,partsOfLine);
+                                con = MakeContext(commands,partsOfLine);
                                 if (con == null)
-                                        return;
+                                        return null;
                                 toCalculate.add(con);
                         }
                         br.close();
+                        return con;
                 }
                 catch (IOException error){
                         System.out.println(error);
                 }
+                return null;
         }
 
-        private void ParseStandard(){
+        private CommandContext ParseStandard(){
                 Scanner scanner = new Scanner(System.in);
                 int i = 1;
                 String line;
                 String[] partsOfLine;
                 String[] commands = {"PUSH","POP","+","-","*","/","SQRT","DEFINE","PRINT","#"};
                 toCalculate = new ArrayList<>();
+                CommandContext con = null;
                 while(scanner.hasNextLine()) {
                         line = scanner.nextLine();
                         partsOfLine = line.split(" ");
-                        CommandContext con = MakeContext(commands,partsOfLine);
+                        con = MakeContext(commands,partsOfLine);
                         if (con == null)
-                                return;
+                                return null;
                         toCalculate.add(con);
                 }
                 scanner.close();
-
+                return con;
         }
 
         public void Parse(String[] args){
-                if (args.length == 0){
-                        System.out.println("Введите программу:");
-                        ParseStandard();
+                try {
+                        if (args.length == 0) {
+                                System.out.println("Введите программу:");
+                                if (ParseStandard() == null)
+                                        throw new MyException("Неправильная команда");
+                        } else {
+                                if (ParseLine(args) == null)
+                                        throw new MyException("Неправильная команда");
+                        }
                 }
-                else{
-                        ParseLine(args);
+                catch (MyException error){
+                        System.out.println(error.getErrorCode());
                 }
         }
 
