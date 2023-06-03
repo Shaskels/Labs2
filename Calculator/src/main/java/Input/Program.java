@@ -8,7 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
 public class Program {
+
+    public static final Logger logger = Logger.getLogger(
+            Program.class.getName());
     private List<CommandContext> toCalculate;
 
     private String[] removeElement(String[] line, int index){
@@ -27,13 +32,13 @@ public class Program {
                 line = removeElement(line,ind);
                 context = new CommandContext(com, line);
             }
-            else continue;
         }
         return context;
     }
     private CommandContext ParseLine(String[] args){
+        BufferedReader br;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(args[0]));
+            br = new BufferedReader(new FileReader(args[0]));
             String line;
             String[] partsOfLine;
             String[] commands = {"PUSH","POP","+","-","*","/","SQRT","DEFINE","PRINT","#"};
@@ -57,7 +62,6 @@ public class Program {
 
     private CommandContext ParseStandard(){
         Scanner scanner = new Scanner(System.in);
-        int i = 1;
         String line;
         String[] partsOfLine;
         String[] commands = {"PUSH","POP","+","-","*","/","SQRT","DEFINE","PRINT","#"};
@@ -78,15 +82,20 @@ public class Program {
     public void Parse(String[] args){
         try {
             if (args.length == 0) {
+                logger.info("Reading from the console");
                 System.out.println("Введите программу:");
-                if (ParseStandard() == null)
+                if (ParseStandard() == null) {
                     throw new MyException("Неправильная команда");
+                }
             } else {
-                if (ParseLine(args) == null)
+                logger.info("Reading from the file");
+                if (ParseLine(args) == null) {
                     throw new MyException("Неправильная команда");
+                }
             }
         }
         catch (MyException error){
+            logger.info("Something went wrong in program reading");
             System.out.println(error.getErrorCode());
         }
     }

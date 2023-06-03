@@ -1,9 +1,12 @@
 package Factory;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CreateSumCommand extends CommandCreator {
 
+    public static final Logger logger = Logger.getLogger(
+            CreateSumCommand.class.getName());
     private String type = "+";
     @Override
     public Command CreateCommand(Config config){
@@ -11,6 +14,7 @@ public class CreateSumCommand extends CommandCreator {
             Map<String,String> classes = config.getClasses();
             Class<?> SumCommand = Class.forName(classes.get(type));
             Command sum = (Command)SumCommand.newInstance();
+            logger.info("Class Sum was created");
             return sum;
         }
         catch (ClassNotFoundException error){

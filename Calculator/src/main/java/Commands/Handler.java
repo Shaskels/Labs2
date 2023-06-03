@@ -9,8 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Handler {
+
+    public static final Logger logger = Logger.getLogger(
+            Handler.class.getName());
     Context context;
 
     public Handler(){
@@ -51,6 +55,7 @@ public class Handler {
             }
         }
         catch (MyException error){
+            logger.info("Something went wrong in program execution");
             System.out.println(error.getErrorCode());
         }
     }

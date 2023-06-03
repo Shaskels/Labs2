@@ -1,9 +1,11 @@
 package Factory;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CreatePopCommand extends CommandCreator {
-
+    public static final Logger logger = Logger.getLogger(
+            CreatePopCommand.class.getName());
     private String type = "POP";
     @Override
     public Command CreateCommand(Config config){
@@ -11,6 +13,7 @@ public class CreatePopCommand extends CommandCreator {
             Map<String,String> classes = config.getClasses();
             Class<?> CommandPop = Class.forName(classes.get(type));
             Command pop = (Command) CommandPop.newInstance();
+            logger.info("Class Pop was created");
             return pop;
         }
         catch(ClassNotFoundException error){

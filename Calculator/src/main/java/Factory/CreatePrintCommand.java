@@ -1,9 +1,12 @@
 package Factory;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CreatePrintCommand extends  CommandCreator{
 
+    public static final Logger logger = Logger.getLogger(
+            CreatePrintCommand.class.getName());
     private String type = "PRINT";
     @Override
     public Command CreateCommand(Config config){
@@ -11,6 +14,7 @@ public class CreatePrintCommand extends  CommandCreator{
             Map<String,String> classes = config.getClasses();
             Class<?> CommandPrint = Class.forName(classes.get(type));
             Command print = (Command) CommandPrint.newInstance();
+            logger.info("Class  Print was created");
             return print;
         }
         catch(ClassNotFoundException error){

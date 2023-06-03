@@ -7,8 +7,13 @@ import Factory.Command;
 import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class SqrtOp implements Command {
+
+    public static final Logger logger = Logger.getLogger(
+            SqrtOp.class.getName());
+
     public int Do(Context con, String[] args){
         Stack<String> stack = con.getStack();
         String arg = null;
@@ -41,6 +46,7 @@ public class SqrtOp implements Command {
         }
         double res = Math.sqrt(num1);
         stack.push(Float.toString((float)res));
+        logger.info("Command Sqrt done");
         return 0;
     }
 }

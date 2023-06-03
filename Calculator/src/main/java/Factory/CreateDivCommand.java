@@ -1,9 +1,12 @@
 package Factory;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CreateDivCommand extends CommandCreator{
 
+    public static final Logger logger = Logger.getLogger(
+            CreateDivCommand.class.getName());
     private String type = "/";
     @Override
     public Command CreateCommand(Config config){
@@ -11,6 +14,7 @@ public class CreateDivCommand extends CommandCreator{
             Map<String,String> classes = config.getClasses();
             Class<?> DivCommand = Class.forName(classes.get(type));
             Command div = (Command)DivCommand.newInstance();
+            logger.info("Class Div was created");
             return div;
         }
         catch (ClassNotFoundException error){

@@ -27,6 +27,6 @@ public class PrintOpTest {
         String[] arguments = new String[] {"c", "3"};
         CommandContext command = new CommandContext("PRINT", arguments);
         int fail = com.Do(context,command.getArguments());
-        assertEquals(fail,"a");
+        assertEquals(fail,1);
     }
 }

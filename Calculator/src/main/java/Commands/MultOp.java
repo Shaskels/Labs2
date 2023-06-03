@@ -7,8 +7,12 @@ import Factory.Command;
 import java.util.EmptyStackException;
 import java.util.Map;
 import java.util.Stack;
+import java.util.logging.Logger;
 
 public class MultOp implements Command {
+
+    public static final Logger logger = Logger.getLogger(
+            MultOp.class.getName());
     private Float getNums(Context con, String arg){
         float num1;
         try {
@@ -43,6 +47,7 @@ public class MultOp implements Command {
             System.out.println(error.getErrorCode());
             return 1;
         }
+        logger.info("Command Mult done");
         return 0;
     }
 }

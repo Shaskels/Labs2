@@ -1,9 +1,12 @@
 package Factory;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class CreatePushCommand extends CommandCreator{
 
+    public static final Logger logger = Logger.getLogger(
+            CreatePushCommand.class.getName());
     private String type = "PUSH";
     @Override
     public Command CreateCommand(Config config){
@@ -11,6 +14,7 @@ public class CreatePushCommand extends CommandCreator{
             Map<String,String> classes = config.getClasses();
             Class<?> CommandPush = Class.forName(classes.get(type));
             Command push = (Command) CommandPush.newInstance();
+            logger.info("Class Push was created");
             return push;
         }
         catch(ClassNotFoundException error){

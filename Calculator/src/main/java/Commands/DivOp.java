@@ -7,8 +7,12 @@ import Factory.Command;
 import java.util.EmptyStackException;
 import java.util.Map;
 import java.util.Stack;
+import java.util.logging.Logger;
 
 public class DivOp implements Command {
+
+    public static final Logger logger = Logger.getLogger(
+            DivOp.class.getName());
     private Float getNums(Context con, String arg){
         float num1;
         try {
@@ -45,6 +49,7 @@ public class DivOp implements Command {
             System.out.println(error.getErrorCode());
             return 1;
         }
+        logger.info("Command Div done");
         return 0;
     }
 }
