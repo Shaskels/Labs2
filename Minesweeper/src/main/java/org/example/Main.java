@@ -1,7 +1,10 @@
 package org.example;
 
+import Controller.GraphicController;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        GraphicController controller = new GraphicController();
+        controller.newGame();
     }
 }

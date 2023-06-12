@@ -32,7 +32,7 @@ public class MainGameFrame extends JFrame {
     private JLabel time;
     private JLabel mines;
 
-    public MainGameFrame(/*Model model*/, GraphicController controller, int fWidth, int fHeight, int mineCount) {
+    public MainGameFrame(/*Model model*/ GraphicController controller, int fWidth, int fHeight, int mineCount) {
         this.controller = controller;
        // this.model = model;
         this.fWidth = fWidth;
