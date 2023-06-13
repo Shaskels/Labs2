@@ -3,18 +3,19 @@ package Controller;
 import View.Graphic.View;
 
 import java.io.IOException;
-import Model.Model;
+import Model.*;
+import org.example.Listener;
 
-public class GraphicController implements Controller{
+public class GraphicController implements Controller, Listener {
 
     int fWidth;
     int fHeight;
     int minesCount;
     View view;
     Model model;
-    public GraphicController() throws IOException {
+    public GraphicController(){
         this.model = new Model();
-        model.events.subscribeAll(this);
+        model.event.subscribeAll(this);
         view = new View();
     }
 
@@ -22,5 +23,11 @@ public class GraphicController implements Controller{
     public void newGame() {
         view.newGame(model, this, fWidth, fHeight, minesCount);
     }
+
+    @Override
+    public void update(Events eventType, int x, int y) {
+
+    }
+
 
 }

@@ -40,6 +40,7 @@ public class MainGameFrame extends JFrame {
         this.mineCount = mineCount;
         this.left = mineCount;
         //model.events.subscribeAll(this);
+        prepareGUI();
     }
 
     public void prepareGUI() {

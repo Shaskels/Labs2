@@ -163,21 +163,21 @@ public class LevelDialog extends JDialog {
         });
         newGameButton.addActionListener(e -> {
             if (easyButton.isSelected()) {
-                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "9");
-                controller.settings.setProperty(GameSettings.Stats.WIDTH, "9");
-                controller.settings.setProperty(GameSettings.Stats.MINES, "10");
+               // controller.settings.setProperty(GameSettings.Stats.HEIGHT, "9");
+                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "9");
+                //controller.settings.setProperty(GameSettings.Stats.MINES, "10");
             } else if (mediumButton.isSelected()) {
-                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
-                controller.settings.setProperty(GameSettings.Stats.WIDTH, "16");
-                controller.settings.setProperty(GameSettings.Stats.MINES, "40");
+                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
+                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "16");
+                //controller.settings.setProperty(GameSettings.Stats.MINES, "40");
             } else if (hardButton.isSelected()) {
-                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
-                controller.settings.setProperty(GameSettings.Stats.WIDTH, "30");
-                controller.settings.setProperty(GameSettings.Stats.MINES, "99");
+                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
+                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "30");
+                //controller.settings.setProperty(GameSettings.Stats.MINES, "99");
             } else if (customButton.isSelected()) {
-                controller.settings.setProperty(GameSettings.Stats.HEIGHT, heightField.getText());
-                controller.settings.setProperty(GameSettings.Stats.WIDTH, widthField.getText());
-                controller.settings.setProperty(GameSettings.Stats.MINES, minesField.getText());
+                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, heightField.getText());
+                //controller.settings.setProperty(GameSettings.Stats.WIDTH, widthField.getText());
+                //controller.settings.setProperty(GameSettings.Stats.MINES, minesField.getText());
             }
             controller.newGame();
         });

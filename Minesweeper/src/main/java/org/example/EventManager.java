@@ -1,7 +1,11 @@
 package org.example;
 
+import Model.Events;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EventManager {
     Map<Events, List<Listener>> listeners = new HashMap<>();
