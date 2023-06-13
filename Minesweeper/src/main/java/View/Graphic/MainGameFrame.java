@@ -5,13 +5,19 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.*;
 
 import Controller.GraphicController;
+import Model.*;
+import org.example.Listener;
+import View.View;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MainGameFrame extends JFrame {
+public class MainGameFrame extends JFrame implements View, Listener {
 
     private GraphicController controller;
-    //private Model model;
+    private Model model;
     private int fWidth;
     private int fHeight;
     private int mineCount;
@@ -19,6 +25,8 @@ public class MainGameFrame extends JFrame {
     MenuManager manager;
     LevelDialog levelDialog;
     private CellPanel[][] cellPanel;
+    private boolean firstMove = true;
+    private boolean endOfGame = false;
     private JMenuBar menuBar;
     private JMenu optionsMenu;
     private JMenuItem exit;
@@ -32,14 +40,14 @@ public class MainGameFrame extends JFrame {
     private JLabel time;
     private JLabel mines;
 
-    public MainGameFrame(/*Model model*/ GraphicController controller, int fWidth, int fHeight, int mineCount) {
+    public MainGameFrame(Model model, GraphicController controller, int fWidth, int fHeight, int mineCount) {
         this.controller = controller;
-       // this.model = model;
+        this.model = model;
         this.fWidth = fWidth;
         this.fHeight = fHeight;
         this.mineCount = mineCount;
         this.left = mineCount;
-        //model.events.subscribeAll(this);
+        model.event.subscribeAll(this);
         prepareGUI();
     }
 
@@ -136,5 +144,87 @@ public class MainGameFrame extends JFrame {
         } else {
             levelDialog.setVisible(true);
         }
+    }
+
+    public void init() {
+        smileButton.addActionListener(e -> controller.newGame());
+        for (int i = 0; i < fWidth; i++) {
+            for (int j = 0; j < fHeight; j++) {
+                int finalI = i;
+                int finalJ = j;
+                cellPanel[i][j].addMouseListener(new MouseAdapter() {
+
+                    public void mouseClicked(MouseEvent e) {
+                        if (!endOfGame) {
+                            if (e.getButton() == MouseEvent.BUTTON1) {
+                                if (firstMove) {
+                                    firstMove = false;
+                                    controller.firstMove(finalI, finalJ);
+                                } else {
+                                    controller.cellPressedLeft(finalI, finalJ);
+                                }
+                            }
+                            if (e.getButton() == MouseEvent.BUTTON3) {
+                                if (!firstMove)
+                                    controller.cellPressedRight(finalI, finalJ);
+                            }
+                        }
+                    }
+
+                    public void mousePressed(MouseEvent e) {
+                        if (!endOfGame)
+                            smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_scared.png"));
+                    }
+
+                    public void mouseReleased(MouseEvent e) {
+                        if (!endOfGame)
+                            smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile.png"));
+                    }
+                });
+
+            }
+        }
+    }
+
+    @Override
+    public void update(Events eventType, int x, int y) {
+        switch (eventType) {
+            case WIN -> {
+                endOfGame = true;
+                smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_win.png"));
+                break;
+            }
+            case GAMEOVER -> {
+                endOfGame = true;
+                smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_killed.png"));
+                cellPanel[x][y].setBackground(Color.RED);
+                for (int i = 0; i < fHeight; i++) {
+                    for (int j = 0; j < fWidth; j++) {
+                        for (MouseListener ml : cellPanel[j][i].getMouseListeners()) {
+                            cellPanel[j][i].removeMouseListener(ml);
+                        }
+
+                    }
+                    break;
+                }
+            }
+            case PUT_FLAG -> {
+                left--;
+                String minesString = Integer.toString(left / 100) + Integer.toString(left % 100 / 10) + Integer.toString(left % 10);
+                mines.setText("<html><body bgcolor=black><font size=100 color=red><b>" + minesString + "</b>");
+                cellPanel[x][y].setBackground(Color.BLUE);
+                break;
+            }
+            case OPEN_CELL -> {
+                cellPanel[x][y].drawNumber();
+            }
+            case CLOSE_CELL -> {
+                left++;
+                String minesString = Integer.toString(left / 100) + Integer.toString(left % 100 / 10) + Integer.toString(left % 10);
+                mines.setText("<html><body bgcolor=black><font size=100 color=red><b>" + minesString + "</b>");
+                cellPanel[x][y].setBackground(null);
+            }
+        }
+
     }
 }
