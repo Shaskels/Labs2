@@ -65,5 +65,16 @@ public class Model {
         this.round = new GameRound(width, height, mineCount);
         round.start(firstX,firstY);
     }
+    public void changeCellState(Point p) {
+
+        round.nextMark(p);
+        if (round.getState(p).equals(State.FLAGGED)) {
+            event.notify(Events.PUT_FLAG, p.getX(), p.getY());
+        }
+        if (round.getState(p).equals(State.CLOSED)) {
+            event.notify(Events.CLOSE_CELL, p.getX(), p.getY());
+        }
+    }
+
 
 }

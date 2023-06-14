@@ -111,4 +111,8 @@ public class GameRound {
         return p;
     }
 
+    public void nextMark(Point p) {
+        field.nextMark(p);
+    }
+
 }

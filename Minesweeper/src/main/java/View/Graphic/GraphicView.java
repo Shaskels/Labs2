@@ -16,4 +16,8 @@ public class GraphicView extends JFrame {
         frame.setMines();
     }
 
+    public Runnable setTime(int seconds) {
+        frame.setTime(seconds);
+        return null;
+    }
 }
