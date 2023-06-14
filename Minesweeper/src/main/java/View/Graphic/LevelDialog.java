@@ -1,6 +1,7 @@
 package View.Graphic;
 
 import Controller.GraphicController;
+import org.example.GameSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,6 @@ import java.awt.*;
 public class LevelDialog extends JDialog {
 
     private GraphicController controller;
-
     private JRadioButton easyButton;
     private JRadioButton mediumButton;
     private JRadioButton hardButton;
@@ -17,6 +17,7 @@ public class LevelDialog extends JDialog {
     private JTextField widthField;
     private JTextField minesField;
     private JButton newGameButton;
+
     public LevelDialog(Frame parent, GraphicController controller) {
         super(parent, "Choose level", ModalityType.APPLICATION_MODAL);
         this.controller = controller;
@@ -163,21 +164,21 @@ public class LevelDialog extends JDialog {
         });
         newGameButton.addActionListener(e -> {
             if (easyButton.isSelected()) {
-               // controller.settings.setProperty(GameSettings.Stats.HEIGHT, "9");
-                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "9");
-                //controller.settings.setProperty(GameSettings.Stats.MINES, "10");
+                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "9");
+                controller.settings.setProperty(GameSettings.Stats.WIDTH, "9");
+                controller.settings.setProperty(GameSettings.Stats.MINES, "10");
             } else if (mediumButton.isSelected()) {
-                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
-                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "16");
-                //controller.settings.setProperty(GameSettings.Stats.MINES, "40");
+                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
+                controller.settings.setProperty(GameSettings.Stats.WIDTH, "16");
+                controller.settings.setProperty(GameSettings.Stats.MINES, "40");
             } else if (hardButton.isSelected()) {
-                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
-                //controller.settings.setProperty(GameSettings.Stats.WIDTH, "30");
-                //controller.settings.setProperty(GameSettings.Stats.MINES, "99");
+                controller.settings.setProperty(GameSettings.Stats.HEIGHT, "16");
+                controller.settings.setProperty(GameSettings.Stats.WIDTH, "30");
+                controller.settings.setProperty(GameSettings.Stats.MINES, "99");
             } else if (customButton.isSelected()) {
-                //controller.settings.setProperty(GameSettings.Stats.HEIGHT, heightField.getText());
-                //controller.settings.setProperty(GameSettings.Stats.WIDTH, widthField.getText());
-                //controller.settings.setProperty(GameSettings.Stats.MINES, minesField.getText());
+                controller.settings.setProperty(GameSettings.Stats.HEIGHT, heightField.getText());
+                controller.settings.setProperty(GameSettings.Stats.WIDTH, widthField.getText());
+                controller.settings.setProperty(GameSettings.Stats.MINES, minesField.getText());
             }
             controller.newGame();
         });

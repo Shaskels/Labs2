@@ -22,11 +22,11 @@ public class MainGameFrame extends JFrame implements View, Listener {
     private int fHeight;
     private int mineCount;
     private int left;
-    MenuManager manager;
-    LevelDialog levelDialog;
     private CellPanel[][] cellPanel;
     private boolean firstMove = true;
     private boolean endOfGame = false;
+    MenuManager manager;
+    LevelDialog levelDialog;
     private JMenuBar menuBar;
     private JMenu optionsMenu;
     private JMenuItem exit;
@@ -40,13 +40,16 @@ public class MainGameFrame extends JFrame implements View, Listener {
     private JLabel time;
     private JLabel mines;
 
+
     public MainGameFrame(Model model, GraphicController controller, int fWidth, int fHeight, int mineCount) {
+        super("Minesweeper");
         this.controller = controller;
         this.model = model;
         this.fWidth = fWidth;
         this.fHeight = fHeight;
         this.mineCount = mineCount;
         this.left = mineCount;
+        this.cellPanel = new CellPanel[fWidth][fHeight];
         model.event.subscribeAll(this);
         prepareGUI();
     }
@@ -78,47 +81,9 @@ public class MainGameFrame extends JFrame implements View, Listener {
         menuBar.add(optionsMenu);
         about = manager.getAboutItem();
         exit = manager.getExitItem();
+        // scores = manager.getScoresItem();
         level = manager.getLevelItem();
         return menuBar;
-    }
-
-    private JPanel createMainPanel() {
-        JPanel p = new JPanel();
-        p.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new BevelBorder(BevelBorder.LOWERED)));
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        return p;
-    }
-
-    private JPanel createInfoPanel() {
-        JPanel p = new JPanel();
-        smileButton = new JButton();
-        smileButton.setPreferredSize(new Dimension(33, 33));
-        smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile.png"));
-        time = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>000</b>");
-        String minesString = Integer.toString(mineCount / 100) + Integer.toString(mineCount % 100 / 10) + Integer.toString(mineCount % 10);
-        mines = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>" + minesString + "</b>");
-        p.setLayout(new GridBagLayout());
-        p.setMaximumSize(new Dimension(300, 100));
-        p.add(time);
-        p.add(smileButton);
-        p.add(mines);
-        p.setBorder(new CompoundBorder(new EmptyBorder(1, 2, 2, 2), new EtchedBorder()));
-        return p;
-    }
-
-    private JPanel createFieldPanel() {
-        JPanel p = new JPanel();
-        p.setBorder(new CompoundBorder(new EmptyBorder(2, 2, 2, 2), new EtchedBorder()));
-        p.setLayout(new GridLayout(fHeight, fWidth));
-        EtchedBorder border = new EtchedBorder(EtchedBorder.LOWERED);
-        for (int i = 0; i < fHeight; i++) {
-            for (int j = 0; j < fWidth; j++) {
-                cellPanel[j][i] = new CellPanel(j, i);
-                cellPanel[j][i].setBorder(border);
-                p.add(cellPanel[j][i]);
-            }
-        }
-        return p;
     }
 
     public void addMenuListeners() {
@@ -137,13 +102,17 @@ public class MainGameFrame extends JFrame implements View, Listener {
         });
     }
 
-    private void createLevelDialog() {
-        if (levelDialog == null) {
-            levelDialog = new LevelDialog(this, controller);
+    public void setTime(int seconds) {
+        String timeString = Integer.toString(seconds / 100) + Integer.toString(seconds % 100 / 10) + Integer.toString(seconds % 10);
+        time.setText("<html><body bgcolor=black><font size=100 color=red><b>" + timeString + "</b>");
+    }
 
-        } else {
-            levelDialog.setVisible(true);
+    public void endGame() {
+        if (levelDialog != null) {
+            levelDialog.dispose();
         }
+        model.event.unsubscribeAll(this);
+        this.dispose();
     }
 
     public void init() {
@@ -186,6 +155,64 @@ public class MainGameFrame extends JFrame implements View, Listener {
         }
     }
 
+    public void setMines() {
+        for (int i = 0; i < fHeight; i++) {
+            for (int j = 0; j < fWidth; j++) {
+                cellPanel[j][i].setMines(controller.getNumOfMines(j, i));
+            }
+        }
+    }
+
+
+    private void createLevelDialog() {
+        if (levelDialog == null) {
+            levelDialog = new LevelDialog(this, controller);
+
+        } else {
+            levelDialog.setVisible(true);
+        }
+    }
+
+
+    private JPanel createMainPanel() {
+        JPanel p = new JPanel();
+        p.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new BevelBorder(BevelBorder.LOWERED)));
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        return p;
+    }
+
+    private JPanel createFieldPanel() {
+        JPanel p = new JPanel();
+        p.setBorder(new CompoundBorder(new EmptyBorder(2, 2, 2, 2), new EtchedBorder()));
+        p.setLayout(new GridLayout(fHeight, fWidth));
+        EtchedBorder border = new EtchedBorder(EtchedBorder.LOWERED);
+        for (int i = 0; i < fHeight; i++) {
+            for (int j = 0; j < fWidth; j++) {
+                cellPanel[j][i] = new CellPanel(j, i);
+                cellPanel[j][i].setBorder(border);
+                p.add(cellPanel[j][i]);
+            }
+        }
+        return p;
+    }
+
+    private JPanel createInfoPanel() {
+        JPanel p = new JPanel();
+        smileButton = new JButton();
+        smileButton.setPreferredSize(new Dimension(33, 33));
+        smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile.png"));
+        time = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>000</b>");
+        String minesString = Integer.toString(mineCount / 100) + Integer.toString(mineCount % 100 / 10) + Integer.toString(mineCount % 10);
+        mines = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>" + minesString + "</b>");
+        p.setLayout(new GridBagLayout());
+        p.setMaximumSize(new Dimension(300, 100));
+        p.add(time);
+        p.add(smileButton);
+        p.add(mines);
+        p.setBorder(new CompoundBorder(new EmptyBorder(1, 2, 2, 2), new EtchedBorder()));
+        return p;
+    }
+
     @Override
     public void update(Events eventType, int x, int y) {
         switch (eventType) {
@@ -226,19 +253,6 @@ public class MainGameFrame extends JFrame implements View, Listener {
             }
         }
 
-    }
-
-    public void setTime(int seconds) {
-        String timeString = Integer.toString(seconds / 100) + Integer.toString(seconds % 100 / 10) + Integer.toString(seconds % 10);
-        time.setText("<html><body bgcolor=black><font size=100 color=red><b>" + timeString + "</b>");
-    }
-
-    public void setMines() {
-        for (int i = 0; i < fHeight; i++) {
-            for (int j = 0; j < fWidth; j++) {
-                cellPanel[j][i].setMines(controller.getNumOfMines(j, i));
-            }
-        }
     }
 
 }

@@ -3,19 +3,26 @@ package Controller;
 import View.Graphic.GraphicView;
 
 import Model.*;
+import org.example.GameSettings;
 import org.example.Listener;
 import Model.Point;
+
+import javax.swing.*;
+import java.io.IOException;
 
 public class GraphicController implements Controller, Listener {
 
     int fWidth;
     int fHeight;
     int minesCount;
-    GraphicView view;
     Model model;
-    static boolean gameStopped = false;
+    GraphicView view;
+    public GameSettings settings;
     Thread timer;
-    public GraphicController(){
+    static boolean gameStopped = false;
+
+    public GraphicController() {
+        this.settings = new GameSettings();
         this.model = new Model();
         model.event.subscribeAll(this);
         view = new GraphicView();
@@ -23,11 +30,19 @@ public class GraphicController implements Controller, Listener {
 
     @Override
     public void newGame() {
+        gameStopped = true;
+        getStats();
         view.newGame(model, this, fWidth, fHeight, minesCount);
+        SwingUtilities.invokeLater(view::init);
     }
 
     @Override
     public void update(Events eventType, int x, int y) {
+        switch (eventType) {
+            case WIN, GAMEOVER -> {
+                gameStopped = true;
+            }
+        }
 
     }
 
@@ -37,6 +52,13 @@ public class GraphicController implements Controller, Listener {
 
     public void cellPressedRight(int x, int y) {
         model.changeCellState(new Point(x, y));
+    }
+
+    private void getStats() {
+        settings.updateStats();
+        fWidth = settings.getfWidth();
+        fHeight = settings.getfHeight();
+        minesCount = settings.getMinesCount();
     }
 
     public void firstMove(int x, int y) {

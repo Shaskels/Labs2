@@ -56,6 +56,7 @@ public class CellPanel extends JPanel {
         addFigure(0, 0, 30, 30, mines);
     }
 
+
     public void addFigure(int x, int y, int height, int width, int num) {
         switch (num) {
             case 1 -> {
@@ -85,6 +86,4 @@ public class CellPanel extends JPanel {
         }
         repaint();
     }
-
-
 }

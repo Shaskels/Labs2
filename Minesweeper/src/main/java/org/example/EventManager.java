@@ -27,6 +27,13 @@ public class EventManager {
         }
     }
 
+    public void unsubscribeAll(Listener listener) {
+        for (Events event : Events.values()) {
+            List<Listener> users = listeners.get(event);
+            users.remove(listener);
+        }
+    }
+
     public void notify(Events eventType, int x, int y) {
         List<Listener> users = listeners.get(eventType);
         for (Listener listener : users) {
