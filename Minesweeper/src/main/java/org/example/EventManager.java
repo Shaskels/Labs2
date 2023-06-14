@@ -26,4 +26,11 @@ public class EventManager {
             listeners.get(event).add(listener);
         }
     }
+
+    public void notify(Events eventType, int x, int y) {
+        List<Listener> users = listeners.get(eventType);
+        for (Listener listener : users) {
+            listener.update(eventType, x, y);
+        }
+    }
 }

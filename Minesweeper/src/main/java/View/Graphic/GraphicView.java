@@ -11,4 +11,9 @@ public class GraphicView extends JFrame {
     public void newGame(Model model, GraphicController controller, int fWidth, int fHeight, int mineCount){
         frame = new MainGameFrame(model, controller, fWidth, fHeight, mineCount);
     }
+
+    public void setMines() {
+        frame.setMines();
+    }
+
 }

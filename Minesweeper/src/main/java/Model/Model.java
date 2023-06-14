@@ -2,7 +2,6 @@ package Model;
 
 import org.example.EventManager;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,5 +56,14 @@ public class Model {
         }
     }
 
+    public int getNumOfMines(int x, int y) {
+        Point p = new Point(x, y);
+        return round.getNumOfMines(p);
+    }
+
+    public void newGame(int width, int height, int mineCount, int firstX, int firstY) {
+        this.round = new GameRound(width, height, mineCount);
+        round.start(firstX,firstY);
+    }
 
 }

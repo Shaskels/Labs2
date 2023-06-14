@@ -227,4 +227,18 @@ public class MainGameFrame extends JFrame implements View, Listener {
         }
 
     }
+
+    public void setTime(int seconds) {
+        String timeString = Integer.toString(seconds / 100) + Integer.toString(seconds % 100 / 10) + Integer.toString(seconds % 10);
+        time.setText("<html><body bgcolor=black><font size=100 color=red><b>" + timeString + "</b>");
+    }
+
+    public void setMines() {
+        for (int i = 0; i < fHeight; i++) {
+            for (int j = 0; j < fWidth; j++) {
+                cellPanel[j][i].setMines(controller.getNumOfMines(j, i));
+            }
+        }
+    }
+
 }

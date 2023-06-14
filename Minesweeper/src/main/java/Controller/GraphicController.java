@@ -4,8 +4,7 @@ import View.Graphic.GraphicView;
 
 import Model.*;
 import org.example.Listener;
-
-import java.awt.*;
+import Model.Point;
 
 public class GraphicController implements Controller, Listener {
 
@@ -15,6 +14,7 @@ public class GraphicController implements Controller, Listener {
     GraphicView view;
     Model model;
     static boolean gameStopped = false;
+    Thread timer;
     public GraphicController(){
         this.model = new Model();
         model.event.subscribeAll(this);
@@ -45,6 +45,27 @@ public class GraphicController implements Controller, Listener {
         view.setMines();
         startTimer();
         model.openCell(new Point(x, y));
+    }
+
+    public int getNumOfMines(int x, int y) {
+        return model.getNumOfMines(x, y);
+    }
+
+    private void startTimer() {
+        timer = new Thread(() -> {
+            int second = 0;
+            while (!gameStopped) {
+                try {
+                    view.setTime(second);
+                    Thread.sleep(1000);
+                    if (second < 999) second++;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        timer.start();
+
     }
 
 }
