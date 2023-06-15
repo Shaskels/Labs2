@@ -28,10 +28,6 @@ public class MenuManager {
         return aboutItem;
     }
 
-    // public JMenuItem getScoresItem() {
-    //     return scoresItem;
-    // }
-
     private JMenu createOptionsMenu() {
 
         JMenu menu = new JMenu("Options");

@@ -18,7 +18,7 @@ public class GameSettings {
 
     public GameSettings() {
         try {
-            FileReader reader = new FileReader("build/resources/main/settings.properties");
+            FileReader reader = new FileReader("src/main/resources/setting.properties");
             settings = new Properties();
             settings.load(reader);
         }

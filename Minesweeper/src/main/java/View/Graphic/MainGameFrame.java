@@ -142,12 +142,12 @@ public class MainGameFrame extends JFrame implements View, Listener {
 
                     public void mousePressed(MouseEvent e) {
                         if (!endOfGame)
-                            smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_scared.png"));
+                            smileButton.setIcon(new ImageIcon("src/main/resources/pictures/smile_scared.png"));
                     }
 
                     public void mouseReleased(MouseEvent e) {
                         if (!endOfGame)
-                            smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile.png"));
+                            smileButton.setIcon(new ImageIcon("src/main/resources/pictures/smile.png"));
                     }
                 });
 
@@ -200,7 +200,7 @@ public class MainGameFrame extends JFrame implements View, Listener {
         JPanel p = new JPanel();
         smileButton = new JButton();
         smileButton.setPreferredSize(new Dimension(33, 33));
-        smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile.png"));
+        smileButton.setIcon(new ImageIcon("src/main/resources/pictures/smile.png"));
         time = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>000</b>");
         String minesString = Integer.toString(mineCount / 100) + Integer.toString(mineCount % 100 / 10) + Integer.toString(mineCount % 10);
         mines = new JLabel("<html><body bgcolor=black><font size=100 color=red><b>" + minesString + "</b>");
@@ -218,12 +218,12 @@ public class MainGameFrame extends JFrame implements View, Listener {
         switch (eventType) {
             case WIN -> {
                 endOfGame = true;
-                smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_win.png"));
+                smileButton.setIcon(new ImageIcon("src/main/resources/pictures/smile_win.png"));
                 break;
             }
             case GAMEOVER -> {
                 endOfGame = true;
-                smileButton.setIcon(new ImageIcon("build/resources/main/pictures/smile_killed.png"));
+                smileButton.setIcon(new ImageIcon("src/main/resources/pictures/smile_killed.png"));
                 cellPanel[x][y].setBackground(Color.RED);
                 for (int i = 0; i < fHeight; i++) {
                     for (int j = 0; j < fWidth; j++) {
