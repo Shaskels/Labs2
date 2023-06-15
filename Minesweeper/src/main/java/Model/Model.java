@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Model {
     public EventManager event;
-    private List<Events> operations;
     private GameRound round;
+    private List<Events> operations;
     private final Point[] offsets =
             {new Point(-1, -1),
                     new Point(-1, 0),
@@ -21,10 +21,17 @@ public class Model {
                     new Point(1, 1)
             };
 
+
+
     public Model() {
         this.operations = new ArrayList<>();
         this.operations.addAll(Arrays.asList(Events.values()));
-        this.event = new EventManager(operations);
+        this.event= new EventManager(operations);
+    }
+
+    public void newGame(int width, int height, int mineCount, int firstX, int firstY) {
+        this.round = new GameRound(width, height, mineCount);
+        round.start(firstX,firstY);
     }
 
     public void openCell(Point p) {
@@ -50,21 +57,6 @@ public class Model {
         }
     }
 
-    private void checkWin() {
-        if (round.checkWin()) {
-            event.notify(Events.WIN, 0, 0);
-        }
-    }
-
-    public int getNumOfMines(int x, int y) {
-        Point p = new Point(x, y);
-        return round.getNumOfMines(p);
-    }
-
-    public void newGame(int width, int height, int mineCount, int firstX, int firstY) {
-        this.round = new GameRound(width, height, mineCount);
-        round.start(firstX,firstY);
-    }
     public void changeCellState(Point p) {
 
         round.nextMark(p);
@@ -77,4 +69,14 @@ public class Model {
     }
 
 
+    private void checkWin() {
+        if (round.checkWin()) {
+            event.notify(Events.WIN, 0, 0);
+        }
+    }
+
+    public int getNumOfMines(int x, int y) {
+        Point p = new Point(x, y);
+        return round.getNumOfMines(p);
+    }
 }

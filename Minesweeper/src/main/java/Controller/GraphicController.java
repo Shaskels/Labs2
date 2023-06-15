@@ -21,7 +21,7 @@ public class GraphicController implements Controller, Listener {
     Thread timer;
     static boolean gameStopped = false;
 
-    public GraphicController() {
+    public GraphicController(){
         this.settings = new GameSettings();
         this.model = new Model();
         model.event.subscribeAll(this);

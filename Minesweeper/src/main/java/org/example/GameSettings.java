@@ -86,5 +86,4 @@ public class GameSettings {
             minesCount = fWidth * fHeight - 1;
         }
     }
-
 }

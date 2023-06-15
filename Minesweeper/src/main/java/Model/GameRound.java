@@ -30,40 +30,12 @@ public class GameRound {
         this.leftToOpen = fHeight * fWidth - minesCount;
     }
 
-    public void openCell(Point p) {
-        field.open(p);
-        leftToOpen--;
-    }
-
-    public int getNumOfMines(Point p) {
-        return field.getNumOfMines(p);
-    }
-
-    public boolean checkWin() {
-        return (leftToOpen == 0);
-    }
-
-    public State getState(Point p) {
-        return field.getState(p);
-    }
-
-    public boolean getIsMined(Point p) {
-        return field.getIsMined(p);
-    }
-
-    public Cell getCell(Point p) {
-        return field.getCell(p);
-    }
-
-    public boolean isMinePoint(Point p) {
-        return field.isMinePoint(p);
-    }
-
     public void start(int firstX, int firstY) {
         field = new Field(fWidth, fHeight, minesCount);
         setMines(firstX, firstY);
         setNumOfMines();
     }
+
 
     private void setMines(int firstX, int firstY) {
         for (int i = 0; i < fWidth; i++) {
@@ -79,6 +51,33 @@ public class GameRound {
             mines++;
             field.makeMined(p);
         }
+    }
+
+    public boolean getIsMined(Point p) {
+        return field.getIsMined(p);
+    }
+
+    public Cell getCell(Point p) {
+        return field.getCell(p);
+    }
+
+    public boolean isMinePoint(Point p) {
+        return field.isMinePoint(p);
+    }
+
+    public void openCell(Point p) {
+
+        field.open(p);
+        leftToOpen--;
+    }
+
+
+    public State getState(Point p) {
+        return field.getState(p);
+    }
+
+    public void nextMark(Point p) {
+        field.nextMark(p);
     }
 
     private void setNumOfMines() {
@@ -103,6 +102,14 @@ public class GameRound {
         return count;
     }
 
+    public int getNumOfMines(Point p) {
+        return field.getNumOfMines(p);
+    }
+
+    public boolean checkWin() {
+        return (leftToOpen == 0);
+    }
+
     public Point getRandomFreePoint() {
 
         int key = (int) ((Math.random() * (notMinedPoints.size() - 1)));
@@ -110,9 +117,4 @@ public class GameRound {
         notMinedPoints.remove(key);
         return p;
     }
-
-    public void nextMark(Point p) {
-        field.nextMark(p);
-    }
-
 }
