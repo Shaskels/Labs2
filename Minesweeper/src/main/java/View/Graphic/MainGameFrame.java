@@ -1,13 +1,13 @@
-package View.Graphic;
+package view.graphic;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.*;
 
-import Controller.GraphicController;
-import Model.*;
+import controller.GraphicController;
+import model.*;
 import org.example.Listener;
-import View.View;
+import view.View;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -31,7 +31,6 @@ public class MainGameFrame extends JFrame implements View, Listener {
     private JMenu optionsMenu;
     private JMenuItem exit;
     private JMenuItem about;
-    //  private JMenuItem scores;
     private JMenuItem level;
     private JButton smileButton;
     private JPanel mainPanel;

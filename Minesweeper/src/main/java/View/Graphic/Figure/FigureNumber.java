@@ -1,4 +1,4 @@
-package View.Graphic.Figure;
+package view.graphic.figure;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

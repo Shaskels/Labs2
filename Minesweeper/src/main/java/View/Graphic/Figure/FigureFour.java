@@ -1,9 +1,9 @@
-package View.Graphic.Figure;
+package view.graphic.figure;
 
 import java.awt.*;
 
 public class FigureFour extends FigureNumber{
-    int x, y, width, height, line_width;
+    private int x, y, width, height, line_width;
 
     public FigureFour(int x, int y, int width, int height) {
         this.x = x;

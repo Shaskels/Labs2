@@ -1,9 +1,9 @@
-package View.Graphic;
+package view.graphic;
 
-import Controller.GraphicController;
-import Model.Model;
-import Model.Events;
-import View.View;
+import controller.GraphicController;
+import model.Model;
+import model.Events;
+import view.View;
 import org.example.Listener;
 
 import javax.swing.*;

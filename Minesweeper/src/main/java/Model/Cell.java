@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 enum State {CLOSED, OPENED, FLAGGED};
 public class Cell {

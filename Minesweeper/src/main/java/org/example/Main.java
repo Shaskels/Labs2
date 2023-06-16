@@ -1,6 +1,6 @@
 package org.example;
 
-import Controller.GraphicController;
+import controller.GraphicController;
 
 public class Main {
     public static void main(String[] args) {

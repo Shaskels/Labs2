@@ -1,6 +1,6 @@
 package org.example;
 
-import Model.Events;
+import model.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;

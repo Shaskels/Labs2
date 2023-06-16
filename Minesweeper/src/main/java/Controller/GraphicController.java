@@ -1,24 +1,23 @@
-package Controller;
+package controller;
 
-import View.Graphic.GraphicView;
+import view.graphic.GraphicView;
 
-import Model.*;
+import model.*;
 import org.example.GameSettings;
 import org.example.Listener;
-import Model.Point;
+import model.Point;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class GraphicController implements Controller, Listener {
 
-    int fWidth;
-    int fHeight;
-    int minesCount;
-    Model model;
-    GraphicView view;
-    public GameSettings settings;
-    Thread timer;
+    private int fWidth;
+    private int fHeight;
+    private int minesCount;
+    private Model model;
+    private GraphicView view;
+    private GameSettings settings;
+    private Thread timer;
     static boolean gameStopped = false;
 
     public GraphicController(){
@@ -90,4 +89,7 @@ public class GraphicController implements Controller, Listener {
 
     }
 
+    public void setProperty(GameSettings.Stats type, String value) {
+        settings.setProperty(type,value);
+    }
 }

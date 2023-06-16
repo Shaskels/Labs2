@@ -1,6 +1,6 @@
 package org.example;
 
-import Model.Events;
+import model.Events;
 
 public interface Listener {
     void update(Events eventType, int x, int y);

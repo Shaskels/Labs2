@@ -1,4 +1,4 @@
-package View.Graphic;
+package view.graphic;
 
 import javax.swing.*;
 
